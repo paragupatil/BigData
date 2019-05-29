@@ -37,7 +37,8 @@ import org.apache.spark.sql.functions._
     val sc = spark.sparkContext
 
     //Read the data file ‘data.csv’.
-    val rdd = sc.textFile("file:///c:\\tmp\\data\\data.csv")
+   //"file:///c:\\tmp\\data\\data.csv"
+    val rdd = sc.textFile(args(0))
     val header = rdd.first()
 
     val rdd1 = rdd.filter(x => x!=header)
@@ -53,8 +54,8 @@ import org.apache.spark.sql.functions._
     import spark.implicits._
 
     val df = rdd2.toDF()
-    val inputPath = args(0) //"file:///c:\\work\\inputdata.parquet"
-    val outputPath = args(1) //"file:///c:\\work\\outputdata.parquet"
+    val inputPath = args(1) //"file:///c:\\work\\inputdata.parquet"
+    val outputPath = args(2) //"file:///c:\\work\\outputdata.parquet"
 
     //Create an optimised parquet file with the same data
     df.write.parquet(inputPath)
